@@ -68,12 +68,12 @@ rho_ACF_cluster_RIS_BDCM = (1)/(K+1)*rho_ACF_NLoS_cluster_BDCM + (K)/(K+1)*rho_A
 
 fig = create_paper_figure(); hold on;
 markerIdx = paper_marker_indices(delta_t);
-plot(delta_t, abs(rho_ACF_NLoS_cluster_GBSM), 'k-+', 'LineWidth', 1.15, 'MarkerSize', 5, 'MarkerIndices', markerIdx);
-plot(delta_t, abs(rho_ACF_NLoS_cluster_BDCM), 'k-d', 'LineWidth', 1.15, 'MarkerSize', 5, 'MarkerIndices', markerIdx);
-plot(delta_t, abs(rho_ACF_VLoS_RIS_GBSM), 'b-', 'LineWidth', 1.15);
-plot(delta_t, abs(rho_ACF_VLoS_RIS_BDCM), 'b-*', 'LineWidth', 1.15, 'MarkerSize', 5, 'MarkerIndices', markerIdx);
-plot(delta_t, abs(rho_ACF_cluster_RIS_GBSM), 'm--', 'LineWidth', 1.15);
-plot(delta_t, abs(rho_ACF_cluster_RIS_BDCM), 'm--o', 'LineWidth', 1.15, 'MarkerSize', 5, 'MarkerIndices', markerIdx);
+plot_paper_curve(delta_t, abs(rho_ACF_NLoS_cluster_GBSM), 1, markerIdx);
+plot_paper_curve(delta_t, abs(rho_ACF_NLoS_cluster_BDCM), 2, markerIdx);
+plot_paper_curve(delta_t, abs(rho_ACF_VLoS_RIS_GBSM), 3, markerIdx);
+plot_paper_curve(delta_t, abs(rho_ACF_VLoS_RIS_BDCM), 4, markerIdx);
+plot_paper_curve(delta_t, abs(rho_ACF_cluster_RIS_GBSM), 5, markerIdx);
+plot_paper_curve(delta_t, abs(rho_ACF_cluster_RIS_BDCM), 6, markerIdx);
 axis([0 0.02 0 1]);
 xlabel('Time difference, $\Delta t$, [s]', 'Interpreter', 'latex');
 ylabel('Temporal ACFs', 'Interpreter', 'latex');

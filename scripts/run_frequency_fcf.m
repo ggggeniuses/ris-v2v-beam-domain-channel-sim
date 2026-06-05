@@ -56,9 +56,9 @@ rho_FCF_cluster_RIS_GBSM = (1)/(K+1)*rho_FCF_NLoS_cluster_GBSM + (K)/(K+1)*rho_F
 
 fig = create_paper_figure(); hold on;
 markerIdx = paper_marker_indices(delta_f_c);
-plot(delta_f_c, abs(rho_FCF_NLoS_cluster_GBSM), 'k-+', 'LineWidth', 1.15, 'MarkerSize', 5, 'MarkerIndices', markerIdx);
-plot(delta_f_c, abs(rho_FCF_VLoS_RIS_GBSM), 'b-', 'LineWidth', 1.15);
-plot(delta_f_c, abs(rho_FCF_cluster_RIS_GBSM), 'm--', 'LineWidth', 1.15);
+plot_paper_curve(delta_f_c, abs(rho_FCF_NLoS_cluster_GBSM), 1, markerIdx);
+plot_paper_curve(delta_f_c, abs(rho_FCF_VLoS_RIS_GBSM), 3, markerIdx);
+plot_paper_curve(delta_f_c, abs(rho_FCF_cluster_RIS_GBSM), 2, markerIdx);
 axis([0 10 0 1]);
 xlabel('Frequency difference, $\Delta f$, [MHz]', 'Interpreter', 'latex');
 ylabel('Normalized FCFs', 'Interpreter', 'latex');

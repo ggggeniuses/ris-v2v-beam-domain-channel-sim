@@ -20,9 +20,9 @@ end
 
 fig = create_paper_figure();
 hold on;
-styles = {'k-', 'b--', 'm-.', 'r:'};
+markerIdx = paper_marker_indices(cfg.axis.delta_t);
 for k = 1:numel(spacingList)
-    plot(cfg.axis.delta_t, curves(:, k), styles{k}, 'LineWidth', 1.35, ...
+    plot_paper_curve(cfg.axis.delta_t, curves(:, k), k, markerIdx, ...
         'DisplayName', labels{k});
 end
 xlabel('Time difference, $\Delta t$, [s]', 'Interpreter', 'latex');
