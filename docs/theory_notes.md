@@ -39,6 +39,6 @@ This project focuses on three channel statistics:
 - Temporal ACF: correlation across time difference under mobility.
 - Frequency FCF: correlation across frequency difference.
 
-The strict reproduction scripts call the original STF-CF functions for these
-statistics. Extension experiments use a compact model to explore additional
-RIS and motion parameters.
+The project implements these statistics with reusable numerical functions.
+Extension experiments use the same configuration and plotting infrastructure
+to explore RIS and motion parameters.

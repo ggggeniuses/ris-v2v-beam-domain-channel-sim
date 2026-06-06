@@ -1,8 +1,7 @@
 function cfg = default_ris_v2v_config()
 %DEFAULT_RIS_V2V_CONFIG Default parameters for RIS-aided V2V channel demos.
 %
-% The defaults follow the scale and notation of the RIS-empowered V2V
-% GBSM/BDCM paper and the accompanying STF-CF MATLAB package.
+% The defaults follow the scale and notation of the cited RIS-V2V model.
 
 cfg.c = 3e8;
 cfg.fc = 5e9;

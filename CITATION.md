@@ -1,7 +1,7 @@
 # Citation
 
-If you use this MATLAB project, please cite the related RIS-V2V channel
-modeling paper and this repository.
+If you use this simulator, cite the repository and the publications that define
+the underlying RIS-V2V and FAS-UAV channel settings.
 
 ```bibtex
 @article{shi2024risv2vbdcm,
@@ -17,10 +17,20 @@ modeling paper and this repository.
 ```
 
 ```bibtex
-@software{ris_v2v_beam_domain_channel_sim,
-  title  = {RIS-V2V Beam-Domain Channel Modeling Simulator},
+@article{jiang2025fasuav,
+  title   = {Dynamic Channel Modeling of Fluid Antenna Systems in UAV Communications},
+  author  = {Jiang, Hao and Shi, Wangqi and Chen, Zhen and Zhang, Zaichen and Wong, Kai-Kit and Shin, Hyundung},
+  journal = {IEEE Wireless Communications Letters},
+  year    = {2025},
+  doi     = {10.1109/LWC.2025.3588223}
+}
+```
+
+```bibtex
+@software{shi2026reconfigurablechannel,
+  title  = {Reconfigurable Wireless Dynamic Channel Simulator},
   author = {Shi, Yiran},
   year   = {2026},
-  note   = {MATLAB reproduction and extension project}
+  note   = {MATLAB platform for RIS-V2V and FAS-UAV dynamic channel analysis}
 }
 ```

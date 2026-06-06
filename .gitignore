@@ -1,5 +1,6 @@
 # MATLAB autosaves and cache
 *.asv
+*.tmp
 *.m~
 slprj/
 sccprj/
@@ -9,7 +10,12 @@ codegen/
 .DS_Store
 Thumbs.db
 .vscode/
+# Generated MATLAB figures are excluded; PNG figures are retained for README.
+results/**/*.fig
 
-# Large or regenerated outputs can be cleaned before release if needed.
-# The checked-in figures under results/figures are intentionally useful for README rendering.
-vendor/**/result/
+# Internal validation assets are never part of the public repository.
+docs/figure_comparison_assets/
+vendor/
+source_materials/
+*.zip
+*.pdf

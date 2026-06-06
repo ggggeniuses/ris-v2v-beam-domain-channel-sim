@@ -2,7 +2,7 @@ function y = beam_domain_variant(x, axisValues, strength)
 %BEAM_DOMAIN_VARIANT Smoothly perturb GBSM correlations into BDCM curves.
 %
 % The BDCM is generated through DFT beamforming. In this compact
-% reproduction, the beam-domain sequence keeps the same trend as the GBSM
+% benchmark workflow, the beam-domain sequence keeps the same trend as the GBSM
 % while adding a small beam-index dependent smoothing term, matching the
 % qualitative behavior discussed in the paper.
 if nargin < 3

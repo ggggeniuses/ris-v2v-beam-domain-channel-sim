@@ -41,5 +41,5 @@ apply_plot_style(gca);
 
 data = struct('cfg', cfg, 'motionStates', motionStates, 'delta_t', cfg.axis.delta_t, ...
     'curves', curves, 'note', ['Extension experiment using the project compact model. ', ...
-    'It studies qualitative mobility impact beyond the strict STF-CF reproduction.']);
+    'It studies qualitative mobility impact across representative V2V states.']);
 save_experiment_outputs(fig, cfg, 'motion_state_sweep_temporal_acf_extension', data);

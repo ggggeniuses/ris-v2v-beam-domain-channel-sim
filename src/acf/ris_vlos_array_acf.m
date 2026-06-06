@@ -3,7 +3,7 @@ function rho = ris_vlos_array_acf(cfg, delta_t)
 %
 % This compact extension model uses RIS element coordinates and the change of
 % Tx/Rx look directions over time. It is intentionally separate from the
-% vendor STF-CF reproduction functions, whose RIS loops use fixed sub-array
+% vendor STF-CF benchmark functions, whose RIS loops use fixed sub-array
 % coordinates and therefore cannot expose RIS-size or spacing sweeps.
 
 delta_t = delta_t(:);

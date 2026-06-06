@@ -1,150 +1,157 @@
-# RIS-V2V Beam-Domain Channel Modeling Simulator
+# Reconfigurable Wireless Dynamic Channel Simulator
 
-MATLAB project for RIS-aided V2V three-dimensional dynamic channel modeling,
-beam-domain statistical correlation reproduction, and mobility/RIS-parameter
-extension experiments.
+Self-contained MATLAB platform for dynamic channel modeling and performance
+analysis in RIS-enabled V2V and FAS-assisted UAV wireless systems.
 
-The project is organized around the paper:
+## Capabilities
 
-> W. Shi et al., "RIS-Empowered V2V Communications: Three-Dimensional Beam
-> Domain Channel Modeling and Analysis," IEEE Transactions on Wireless
-> Communications, 2024.
+### RIS-V2V
 
-## What This Project Does
+- Spatial cross-correlation, temporal autocorrelation, and frequency
+  correlation baselines.
+- RIS array-size and element-spacing parameter sweeps.
+- Vehicle mobility-state analysis.
+- Array-domain and beam-domain capacity invariance check.
+- Beam-domain energy concentration and sparsity metrics.
+- Equal-basis full-model and sparsity-aware complexity accounting.
 
-- Refactors the original STF-CF MATLAB code into a reproducible project.
-- Reproduces statistical channel characteristics from the original STF-CF code:
-  - Spatial cross-correlation function (CCF)
-  - Temporal auto-correlation function (ACF)
-  - Frequency correlation function (FCF)
-- Keeps the original link decomposition:
-  - NLoS cluster link
-  - RIS-assisted VLoS link
-  - Rician-combined NLoS + VLoS link
-- Adds extension experiments for RIS size, RIS element spacing, and mobility
-  states.
+### FAS-UAV
 
-## Project Structure
+- Modeling error versus port spacing and active-port count.
+- Capacity versus active ports and physical aperture.
+- Capacity under different UAV motion states.
+- FAS and conventional ULA capacity comparison.
+- Shared random environments for fair Monte Carlo comparisons.
+- `quick`, `calibration`, and `final` simulation profiles.
+
+## Repository Layout
 
 ```text
 .
 |-- run_all.m
-|-- run_reproduction.m
+|-- run_benchmarks.m
 |-- run_extensions.m
+|-- run_fas_uav.m
+|-- run_tests.m
 |-- scripts/
+|   |-- fas_uav/
 |-- src/
-|-- vendor/original_stf_cf/
-|-- results/figures/
-|-- results/data/
+|   |-- acf/
+|   |-- ccf/
+|   |-- fcf/
+|   |-- common/
+|   |-- config/
+|   |-- fas_uav/
+|   |-- ris_v2v/
+|-- tests/
+|-- results/
+|   |-- figures/
+|   |-- data/
 |-- docs/
-|-- references/
 ```
 
-`vendor/original_stf_cf/` contains the original STF-CF functions. The strict
-reproduction scripts call those `rho_*` functions directly. The original FCF
-script comments out the BDCM FCF curves, so the strict FCF figure follows the
-three-curve GBSM output that the source script actually computes and plots. The
-extension experiments are kept separate and clearly marked as extensions.
+## Requirements
 
-## Quick Start
+- MATLAB R2024b or a compatible recent MATLAB release.
+- No additional MATLAB toolbox is required by the project code.
 
-Run all reproduction and extension experiments:
+## Run
+
+From the repository root:
 
 ```matlab
 run_all
+run_tests
 ```
 
-Run only strict reproduction:
+Individual modules:
 
 ```matlab
-run_reproduction
-```
-
-Run only extension experiments:
-
-```matlab
+run_benchmarks
 run_extensions
+run_fas_uav
 ```
 
-Outputs are saved to:
+FAS-UAV uses four Monte Carlo realizations by default for a fast check. For
+final-quality figures on PowerShell:
 
-```text
-results/figures/
-results/data/
+```powershell
+$env:FAS_UAV_PROFILE = "final"
+matlab -batch "run_all"
+matlab -batch "run_tests"
 ```
 
-## Reproduction Results
+The `final` profile uses 300 realizations.
 
-### Spatial CCF
+## Selected Results
 
-![Spatial CCF](results/figures/spatial_ccf_gbsm_bdcm_strict.png)
+### RIS-V2V Correlation
 
-This experiment compares spatial CCFs of NLoS, VLoS, and Rician-combined links
-under GBSM and BDCM descriptions.
+![Spatial CCF](results/figures/spatial_ccf_model_baseline.png)
 
-### Temporal ACF
+![Temporal ACF](results/figures/temporal_acf_model_baseline.png)
 
-![Temporal ACF](results/figures/temporal_acf_gbsm_bdcm_strict.png)
+![Frequency FCF](results/figures/frequency_fcf_model_baseline.png)
 
-This experiment compares temporal ACFs and shows the non-stationary temporal
-correlation behavior induced by V2V mobility and RIS-assisted propagation.
+### RIS-V2V Beam-Domain Analysis
 
-### Frequency FCF
+![Capacity](results/figures/ris_v2v/channel_capacity_gbsm_bdcm_extension.png)
 
-![Frequency FCF](results/figures/frequency_fcf_gbsm_bdcm_strict.png)
+![Sparsity](results/figures/ris_v2v/channel_matrix_sparsity_gbsm_bdcm_extension.png)
 
-This experiment compares normalized FCFs using the three GBSM curves that are
-actually plotted in the original `Frequency_FCF.m` script. BDCM helper
-functions exist in the source package, but the paper-code script comments out
-those FCF lines, so they are not mixed into the strict reproduction figure.
+![Complexity](results/figures/ris_v2v/complexity_comparison_extension.png)
 
-## Extension Results
+The ideal DFT transform preserves channel capacity. The complexity reduction
+shown by the sparse BDCM curve comes from retaining the beam coefficients that
+capture 95% of channel energy, rather than from assigning different matrix
+sizes to the full GBSM and BDCM.
 
-### RIS Array Size
+### FAS-UAV Analysis
 
-![RIS size sweep](results/figures/ris_parameter_sweep_temporal_acf_extension.png)
+![Modeling error](results/figures/fas_uav/fas_uav_modeling_error.png)
 
-### RIS Element Spacing
+![Capacity versus active ports](results/figures/fas_uav/fas_uav_capacity_vs_ports_w.png)
 
-![RIS spacing sweep](results/figures/ris_spacing_sweep_temporal_acf_extension.png)
+![Capacity versus motion](results/figures/fas_uav/fas_uav_capacity_vs_ports_motion.png)
 
-### Mobility State
+![FAS versus ULA](results/figures/fas_uav/fas_uav_capacity_fas_vs_ula.png)
 
-![Motion state sweep](results/figures/motion_state_sweep_temporal_acf_extension.png)
+The modeling-error experiment evaluates the complex CIRs directly. Frobenius
+normalization is applied separately in the channel-capacity experiments.
 
-The extension experiments use a compact RIS-array geometry model because the
-original RIS `rho_*` functions hard-code `M_x = M_z = 30` internally and reuse a
-fixed sub-array coordinate in the RIS element loops. The extension model
-computes temporal correlation from RIS element coordinates and time-varying
-Tx/Rx look directions, so array size, element spacing, and mobility changes
-produce interpretable qualitative trends beyond strict reproduction.
+## Validation
+
+`run_tests` checks:
+
+- DFT matrix unitarity and ideal capacity invariance.
+- FAS-UAV deterministic behavior under fixed random seeds.
+- Active-port validity and channel dimensions.
+- Raw-CIR and normalized-channel execution paths.
+- Modeling-error equation behavior.
+- Sparsity and complexity metrics.
+- Expected output files and finite numerical values.
+
+The latest release candidate passed both `run_all` and `run_tests` with the
+300-realization final profile.
 
 ## Documentation
 
 - [Theory notes](docs/theory_notes.md)
-- [Reproduction guide](docs/reproduction_guide.md)
-- [Project overview and roadmap](docs/project_overview_and_roadmap.md)
-- [Resume description](docs/resume_description.md)
-- [Material notes](references/material_notes.md)
+- [Run guide](docs/benchmark_run_guide.md)
+- [Model validation](docs/model_validation.md)
+- [Figure interpretation](docs/figure_interpretation.md)
+- [Cross-scenario comparison](docs/cross_scenario_comparison.md)
+- [Literature map](docs/literature_map.md)
+- [Project roadmap](docs/project_overview_and_roadmap.md)
+- [Chinese project description](docs/项目说明书_可重构无线动态信道建模平台.md)
 
-## MATLAB Environment
+## Research Basis
 
-Tested locally with:
-
-```text
-matlab -batch "run_all"
-```
-
-No external MATLAB toolbox is required for the current scripts.
-
-## Resume Summary
-
-> Built a MATLAB simulator for RIS-aided V2V 3D dynamic channel modeling.
-> Refactored original STF-CF code to reproduce GBSM/BDCM spatial CCF and
-> temporal ACF results plus the original-code GBSM frequency FCF, and extended
-> the study by analyzing
-> RIS array size, element spacing, and mobility-state impacts on channel
-> non-stationarity.
+The implementation is informed by the channel definitions and evaluation
+metrics in the RIS-V2V and FAS-UAV publications listed in
+[CITATION.md](CITATION.md). The repository contains project code and generated
+results only; source papers and internal visual-check materials are not
+distributed.
 
 ## License
 
