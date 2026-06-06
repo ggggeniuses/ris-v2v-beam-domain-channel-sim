@@ -8,5 +8,6 @@ fprintf('Running project validation tests...\n');
 run(fullfile(projectRoot, 'tests', 'test_common.m'));
 run(fullfile(projectRoot, 'tests', 'test_ris_v2v.m'));
 run(fullfile(projectRoot, 'tests', 'test_fas_uav.m'));
+run(fullfile(projectRoot, 'tests', 'test_fas_ship.m'));
 run(fullfile(projectRoot, 'tests', 'test_output_manifest.m'));
 fprintf('All validation tests passed.\n');

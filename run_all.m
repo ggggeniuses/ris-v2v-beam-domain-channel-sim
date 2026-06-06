@@ -5,12 +5,15 @@ addpath(genpath(fullfile(projectRoot, 'src')));
 
 fprintf('RIS-V2V beam-domain channel simulation\n');
 fprintf('Project root: %s\n', projectRoot);
-fprintf('Running self-contained RIS-V2V and FAS-UAV project models.\n');
+fprintf('Running RIS-V2V, FAS-UAV, and maritime RIS-FAS project models.\n');
 
 run(fullfile(projectRoot, 'run_benchmarks.m'));
 run(fullfile(projectRoot, 'run_extensions.m'));
 if exist(fullfile(projectRoot, 'run_fas_uav.m'), 'file')
     run(fullfile(projectRoot, 'run_fas_uav.m'));
+end
+if exist(fullfile(projectRoot, 'run_fas_ship.m'), 'file')
+    run(fullfile(projectRoot, 'run_fas_ship.m'));
 end
 run(fullfile(projectRoot, 'scripts', 'run_smoke_checks.m'));
 
